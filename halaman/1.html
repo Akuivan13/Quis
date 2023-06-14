@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QUIS HTML DASAR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <!--css-->
+  <style>
+   body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#choices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  margin: 5px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0400f3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.choice-animation {
+  transition: background-color 0.3s ease;
+}
+
+.choice-animation:hover {
+  background-color: lightblue;
+}
+
+.choice-animation.correct {
+  animation-name: correctAnimation;
+  animation-duration: 1s;
+}
+
+@keyframes correctAnimation {
+  0% {
+    background-color: lightblue;
+  }
+  50% {
+    background-color: rgb(148, 76, 243);
+  }
+  100% {
+    background-color: lightblue;
+  }
+}
+
+.choice-animation.wrong {
+  animation-name: wrongAnimation;
+  animation-duration: 1s;
+}
+
+@keyframes wrongAnimation {
+  0% {
+    background-color: rgb(0, 126, 168);
+  }
+  50% {
+    background-color: red;
+  }
+  100% {
+    background-color: rgb(0, 164, 219);
+  }
+}
+
+.choice-animation {
+  transition: background-color 0.3s ease;
+}
+
+.choice-animation:hover {
+  background-color: rgb(40, 13, 136);
+}
+
+.choice-animation.selected {
+  background-color: rgb(143, 153, 4);
+}
+
+
+  </style>
+</head>
+  <body>
+    <!-- soal -->
+    <div class="position-absolute top-50 start-50 translate-middle shadow-lg bg-body rounded text-white">
+    <div class="card" style="background-color: #202938;">
+      <div class="card-body text-center">
+        <h5 class="card-title">Quis HTML</h5>
+        <p class="card-text"></p>
+        
+        <div id="quiz">
+          <h2 id="question"></h2>
+          <div id="choices"></div>
+          <button id="submitBtn" class="bg-warning">Klik Ini</button>
+          <p id="result"></p>
+          <p id="score">Score: <span id="scoreValue">0</span></p>
+          <p>Maaf jika jawaban sudah di klik tidak bisa di ganti,Silahkan Refresh Halaman Ini</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+      <!-- akhir soal -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+ <!-- script -->
+<script>
+    const questions = [
+    {
+        question: "Apa kepanjangan dari HTML?",
+        choices: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
+        correctAnswer: "Hyper Text Markup Language",
+        score: 10
+      },
+      {
+        question: "Tag apa yang digunakan untuk membuat paragraf dalam HTML?",
+        choices: ["<p>", "<h1>", "<div>"],
+        correctAnswer: "<p>",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <a> dalam HTML?",
+        choices: ["Membuat heading", "Membuat paragraf", "Membuat tautan atau hyperlink"],
+        correctAnswer: "Membuat tautan atau hyperlink",
+        score: 10
+      },
+      {
+        question: "Tag apa yang digunakan untuk membuat judul utama dalam HTML?",
+        choices: ["<h1>", "<p>", "<div>"],
+        correctAnswer: "<h1>",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <img> dalam HTML?",
+        choices: ["Membuat gambar", "Membuat teks tebal", "Membuat tautan"],
+        correctAnswer: "Membuat gambar",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <ul> dalam HTML?",
+        choices: ["Membuat daftar berurutan", "Membuat tabel", "Membuat daftar tak terurut"],
+        correctAnswer: "Membuat daftar tak terurut",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <table> dalam HTML?",
+        choices: ["Membuat daftar berurutan", "Membuat tabel", "Membuat daftar tak terurut"],
+        correctAnswer: "Membuat tabel",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <form> dalam HTML?",
+        choices: ["Membuat formulir", "Membuat gambar", "Membuat tautan"],
+        correctAnswer: "Membuat formulir",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <input> dalam HTML?",
+        choices: ["Membuat gambar", "Membuat teks tebal", "Membuat inputan atau masukan"],
+        correctAnswer: "Membuat inputan atau masukan",
+        score: 10
+      },
+      {
+        question: "Apa fungsi dari tag <div> dalam HTML?",
+        choices: ["Membuat heading", "Membuat paragraf", "Membuat kotak konten"],
+        correctAnswer: "Membuat kotak konten",
+        score: 10
+      },
+      
+
+    ];
+
+const questionElement = document.getElementById('question');
+const choicesElement = document.getElementById('choices');
+const resultElement = document.getElementById('result');
+const submitButton = document.getElementById('submitBtn');
+const scoreElement = document.getElementById('score');
+
+let currentQuestion = 0;
+let selectedChoice = null;
+let score = 0;
+
+function showQuestion() {
+  const question = questions[currentQuestion];
+  questionElement.textContent = question.question;
+
+  choicesElement.innerHTML = "";
+  for (let i = 0; i < question.choices.length; i++) {
+    const choice = document.createElement('button');
+    choice.textContent = question.choices[i];
+    choice.classList.add('choice-animation');
+    choice.addEventListener('click', () => {
+      selectChoice(choice, question.choices[i]);
+    });
+    choicesElement.appendChild(choice);
+  }
+}
+
+function selectChoice(choiceElement, choice) {
+  if (selectedChoice) {
+    const prevChoiceElement = choicesElement.querySelector(`button[data-choice="${selectedChoice}"]`);
+    prevChoiceElement.classList.remove('selected');
+  }
+
+  selectedChoice = choice;
+  choiceElement.classList.add('selected');
+}
+
+function checkAnswer() {
+  const question = questions[currentQuestion];
+
+  if (selectedChoice === null) {
+    resultElement.textContent = "Silakan pilih jawaban sebelum menekan tombol Submit.";
+    return;
+  }
+
+  if (selectedChoice === question.correctAnswer) {
+    resultElement.textContent = "Jawaban benar! Lanjut ke pertanyaan berikutnya.";
+    score += question.score;
+    scoreElement.textContent = "Skor: " + score;
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+      selectedChoice = null;
+      setTimeout(showQuestion, 1000);
+    } else {
+      resultElement.textContent = "Selamat! Anda telah menyelesaikan kuis.";
+      choicesElement.innerHTML = "";
+      submitButton.disabled = true;
+    }
+  } else {
+    resultElement.textContent = "Jawaban salah. Coba lagi!";
+  }
+}
+
+submitButton.addEventListener('click', checkAnswer);
+
+showQuestion();
+
+</script>
+</body>
+</html>

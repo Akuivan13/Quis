@@ -127,14 +127,15 @@
         setTimeout(showQuestion, 1000);
       } else {
         resultElement.textContent = "Selamat! Anda telah menyelesaikan kuis.";
-        choicesElement.innerHTML = "";
-        submitButton.disabled = true;
+        questionElement.style.display = "none";
+        choicesElement.style.display = "none";
+        submitButton.style.display = "none";
         scoreContainer.style.display = "block";
         scoreElement.textContent = "Skor: " + score;
+        questions.length = 0; // Remove all questions
       }
     }
     
     submitButton.addEventListener('click', checkAnswer);
     
     showQuestion();
-    

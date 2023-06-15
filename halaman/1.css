@@ -1,0 +1,89 @@
+
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background-color: #0B1528;
+}
+
+.content {
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+}
+
+h1 {
+text-align: center;
+}
+
+#choices {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+button {
+margin: 5px 0;
+padding: 10px 20px;
+font-size: 16px;
+background-color: #0400f3;
+color: #fff;
+border: none;
+cursor: pointer;
+}
+
+.choice-animation {
+transition: background-color 0.3s ease;
+}
+
+.choice-animation:hover {
+background-color: lightblue;
+}
+
+.choice-animation.correct {
+animation-name: correctAnimation;
+animation-duration: 1s;
+}
+
+@keyframes correctAnimation {
+0% {
+ background-color: lightblue;
+}
+50% {
+ background-color: rgb(148, 76, 243);
+}
+100% {
+ background-color: lightblue;
+}
+}
+
+.choice-animation.wrong {
+animation-name: wrongAnimation;
+animation-duration: 1s;
+}
+
+@keyframes wrongAnimation {
+0% {
+ background-color: rgb(0, 126, 168);
+}
+50% {
+ background-color: red;
+}
+100% {
+ background-color: rgb(0, 164, 219);
+}
+}
+
+.choice-animation {
+transition: background-color 0.3s ease;
+}
+
+.choice-animation:hover {
+background-color: rgb(40, 13, 136);
+}
+
+.choice-animation.selected {
+background-color: rgb(143, 153, 4);
+}
+
+

@@ -26,8 +26,8 @@
       },
       {
         question: "Apa fungsi dari tag <img> dalam HTML?",
-        choices: ["Membuat gambar", "Membuat teks tebal", "Membuat tautan"],
-        correctAnswer: "Membuat gambar",
+        choices: ["Memasukan gambar", "Membuat teks tebal", "Membuat tautan"],
+        correctAnswer: "Memasukan gambar",
         score: 10
       },
       {
